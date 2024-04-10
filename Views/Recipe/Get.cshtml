@@ -1,0 +1,105 @@
+﻿@model Recipe
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Page</title>
+</head>
+<body>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLiveLabel" style="display: hidden;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLiveLabel"><font class="text-danger">Delete</font> @Model.Title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this recipe?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a asp-controller="Recipe" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger" style="width:100px">
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="row">
+
+            <!-- Image -->
+            <div class="col my-auto p-5 d-flex">
+                <img src="@Model.ImageUrl" alt="Recipe Image" class="mx-auto rounded-2 recipe-img" style="">
+            </div>
+
+            <div class="px-5 px-lg-0">
+
+                <div class="col-10 offset-1">
+                    <!-- Title -->
+                    <h1 class="fw-bold fs-2 text-center mb-3">
+                        @Model.Title
+                        <a asp-controller="Recipe" asp-action="Edit" asp-route-id="@Model.Id">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                            </svg>
+                        </a>
+                    </h1>
+                    
+                    <div class="row">
+                        <div class="col">
+                                
+                        </div>
+                        <div class="col">
+                                
+                        </div>
+                    </div>
+
+
+                    <!-- Description -->
+                    <p class="lead mb-5 text-center">@Model.Description</p>
+                </div>
+
+                <div class="row">
+                    <!-- Ingredients -->
+                    <div class="col-lg-4 offset-lg-1 col-sm-12 mb-5">
+                        <h2 class="fw-bold fs-4 mb-3 ms-0">Ingredients:</h2>
+                        <table class="table">
+                            @foreach (var ingredient in Model.Ingredients)
+                            {
+                                <tr class="row">
+                                    <td class="col-8 text-muted">@ingredient.Name</td>
+                                    <td class="col-4 text-muted">@ingredient.Amount @ingredient.Unit</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+
+                    <!-- Directions -->
+                    <div class="col-lg-4 offset-lg-2 col-sm-12">
+                        <h2 class="fw-bold fs-4 mb-3">Directions:</h2>
+                        <table class="table">
+                            @foreach (var direction in Model.Directions)
+                            {
+                                <tr class="row">
+                                    <td class="text-muted">@direction.DirectionText</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
